@@ -1,0 +1,19 @@
+.siteCtn {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background-color: #F2F6FC;
+
+}
+
+header {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+}
+
+.dynamicCtt {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}

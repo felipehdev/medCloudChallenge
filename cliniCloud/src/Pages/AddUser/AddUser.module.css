@@ -1,0 +1,58 @@
+.pageTitle {
+  align-self: center;
+  font-weight: 500;
+}
+
+.fieldTt {
+  font-weight: 900;
+}
+
+.formCtn {
+  display: flex;
+  margin: 0 auto;
+  max-width: fit-content;
+
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 24px;
+  border: 1px solid rgb(233, 233, 233);
+}
+.nameCtn {
+  display: flex;
+  gap: 20px;
+  margin: 20px;
+  margin-top: 10px;
+}
+
+.fieldTypeOne {
+  width: 500px;
+}
+
+.birthdateCtn {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px;
+  margin-top: 10px;
+}
+
+.fieldTypeTwo {
+  width: 153px;
+}
+
+.emailCtn {
+  margin: 20px;
+  display: flex;
+  gap: 20px;
+  width: 500px;
+}
+
+.fieldTypeThree {
+  width: 100%;
+}
+
+.emailCtn {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

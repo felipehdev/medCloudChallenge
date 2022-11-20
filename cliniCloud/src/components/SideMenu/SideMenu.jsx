@@ -1,32 +1,31 @@
-import React from 'react'
+import React from "react";
+import S from "./SideMenu.module.css";
+import { Button } from "@mui/material";
 
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import { Link as RouterLink } from "react-router-dom";
 
 const SideMenu = () => {
   return (
     <div>
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-              </ListItemIcon>
-              <ListItemText primary="Inbox" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-              </ListItemIcon>
-              <ListItemText primary="Drafts" />
-            </ListItemButton>
-          </ListItem>
-        </List>
+      <div className={S.sidebarCtn}>
+        <nav className={S.sidebar}>
+          <div className={S.menu}>
+            <Button className={S.btn} variant="contained">
+              <RouterLink to="/">🏚 Home</RouterLink>
+            </Button>
+            <Button className={S.btn} variant="contained">
+              <RouterLink to="/addUser">➕ New Patient</RouterLink>
+            </Button>
+          </div>
+          <div className={S.logOutCtn}>
+            <Button className={S.btn} variant="contained">
+              ❌Sair
+            </Button>
+          </div>
+        </nav>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default SideMenu
+export default SideMenu;
