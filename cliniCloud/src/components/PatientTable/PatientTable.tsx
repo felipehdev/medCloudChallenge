@@ -1,10 +1,9 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid,   GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import axios from "axios";
-import { autocompleteClasses } from "@mui/material";
-
+import Actions from "../Actions/Actions"
 
 //usar funçao onEditRowsModelChange
 
@@ -12,6 +11,12 @@ const PatientTable = () => {
   
   const [ rows, setRows ] = useState([]);
   console.log(rows);
+
+  const [ rowId, setRowId] =  useState('');
+
+  const [ user, setUser ] = useState('');
+
+  const [ fetch, setFetch ] = useState('');
   
 
   // axios method that reqs all the patients on load
@@ -32,13 +37,14 @@ const PatientTable = () => {
     {
       field: "id",
       headerName: "ID",
-      width: 200,
+      width: 150,
       description: "This column can`t be changed.",
+      
     },
     {
       field: "cpf",
       headerName: "CPF",
-      width: 200,
+      width: 150,
       editable: true,
     },
     {
@@ -51,47 +57,54 @@ const PatientTable = () => {
       field: "birthdate",
       headerName: "Birthdate",
       type: "string",
-      width: 200,
+      width: 170,
       editable: true,
     },
     {
       field: "email",
       headerName: "Email",
-      width: 250,
+      width: 300,
       editable: true,
     },
     {
       field: "address",
       headerName: "Address",
-      editable: true,
       width: 250,
-    },
-    {
-      field: "options",
-      headerName: "Options",
-      description: "This column shows save and cancel operations options.",
       editable: true,
-      sortable: false,
-      width: 160,
     },
+    // {
+    //   field: "options",
+    //   headerName: "Options",
+      
+    //   description: "This column shows save and cancel operations options.",
+    //   editable: false,
+    //   sortable: false,
+    //   width: 100,
+      
+    // },
   ];
 
   return (
-    <Box sx={{ margin: "0 auto", height: 400, width: "95%" }}>
+    <Box sx={{ margin: "0 auto", width: "99%"}}>
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={6}
-        rowsPerPageOptions={[9]}
+        pageSize={10}
+        rowsPerPageOptions={[10]}
         disableSelectionOnClick
-
+        
+        getRowId={(row) => row.id}
+        onRowClick={(params)=> {setRowId(params.id); console.log(rowId);}}
         autoHeight= {true}
-        autoPageSize= {true}
         density	= {"standard"}
         editMode = { "row"}
         experimentalFeatures={{ newEditingApi: true }}
         headerHeight= {65}
+
+
       />
+      
+      {rowId ? ( <Actions rowId={rowId} />) : null}
     </Box>
   );
 };

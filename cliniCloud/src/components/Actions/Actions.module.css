@@ -1,0 +1,26 @@
+.formCtn{
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+}
+.nameCtn {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 10px;
+}
+
+.cpfCtn {
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+}
+
+.btnsCtn {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    flex-direction: column;
+    padding-bottom: 10px;
+
+}

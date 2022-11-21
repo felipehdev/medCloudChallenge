@@ -34,7 +34,7 @@ const AddUser = () => {
         cpf: newUser.cpf,
         address: newUser.address,
         email: newUser.email,
-        name: newUser.email,
+        name: newUser.name,
       })
       .then(function (response) {
         console.log(response);
@@ -78,6 +78,7 @@ const AddUser = () => {
             </Typography>
             <div className={S.birthdateCtn}>
               <TextField
+              value={day}
                 onChange={(e) => {
                   setDay(e.target.value);
                 }}
@@ -93,6 +94,7 @@ const AddUser = () => {
                 variant="outlined"
               />
               <TextField
+              value={month}
                 onChange={(e) => {
                   setMonth(e.target.value);
                 }}
@@ -108,6 +110,7 @@ const AddUser = () => {
                 variant="outlined"
               />
               <TextField
+              value={year}
                 onChange={(e) => {
                   setYear(e.target.value);
                 }}
