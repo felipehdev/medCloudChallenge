@@ -9,40 +9,88 @@ import { useEffect, useState } from "react";
 import S from "./AddUser.module.css";
 import axios from "axios";
 
-//validaçoes
-// data de aniversario seletor de abre fecha a data é montada e enviada pro server
-// cpf buscar regex
-// endereço buscar endereço valido no busca cep ou correios
-// email email deve conter pelo menos 3 letras antes da arroba, a arroba, o provedor, o ponto , e pelo menos dois digitos apos o ponto.
-//**nome o nome é composto por dois campos, nome e sobrenome que sao unidos e enviados em camelcase pro servidor
-
 const AddUser = () => {
-  const [newUser, setNewUser] = useState({});
 
+  //usuario a ser criado
+  const [newUser, setNewUser] = useState({});
+  console.log(newUser);
+
+  //construtor da data (poderia ser um objeto)
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
-
   console.log(day, month, year);
 
-  console.log(newUser);
+  const [ successText, setSuccessText] = useState('')
 
-  function post() {
-    axios
-      .post("https://fd4faqc395.execute-api.sa-east-1.amazonaws.com/dev/user", {
-        birthdate: `${year}-${month}-${day}`,
-        cpf: newUser.cpf,
-        address: newUser.address,
-        email: newUser.email,
-        name: newUser.name,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  //VALIDAÇOES
+  const [error, setError] = useState({
+    name: false,    
+    email: false,
+  });
+  console.log(error);
+
+  const [helperText, setHelperText] = useState({
+    name: "",
+    email: "",
+  });
+
+  const [ btnOff, setBtnOff ] = useState(false)  
+
+  const rgex = {
+    name: /^[a-zA-Z]+ [a-zA-Z]+$/,    
+    email: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
   };
+
+  const validateName = () => {
+    if (rgex.name.test(newUser.name) === true) {
+      setError({ ...error, name: false });
+      setHelperText({ ...error, name: "✔ That's a valid fullname." });      
+      setBtnOff(false);
+    } else {
+      setError({ ...error, name: true });
+      setHelperText({ ...error, name: "Invalid fullname." });
+      setBtnOff(true)
+    }
+  };
+
+  const validateEmail = () => {
+    if (rgex.email.test(newUser.email) === true) {
+      setError({ ...error, email: false });
+      setHelperText({ ...error, email: "✔ That's a valid email." });
+      setBtnOff(false);
+    } else {
+      setError({ ...error, email: true });
+      setHelperText({ ...error, email: "Invalid email" });
+      setBtnOff(true);
+    }
+  };
+
+  //post function
+  function post() {   
+    axios
+    .post("https://fd4faqc395.execute-api.sa-east-1.amazonaws.com/dev/user", {
+      birthdate: `${year}-${month}-${day}`,
+      cpf: newUser.cpf,
+      address: newUser.address,
+      email: newUser.email,
+      name: newUser.name,
+    })
+    .then(function (response) {
+      if (response.status = 200) {
+        setSuccessText('Patient created')
+      }
+      else {
+        setSuccessText('Something went wrong')
+      }
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+
+  }
 
   return (
     <>
@@ -61,10 +109,11 @@ const AddUser = () => {
             </Typography>
             <div className={S.nameCtn}>
               <TextField
+                error={error.name}
+                helperText={helperText.name}
                 value={newUser.name}
-                onChange={(e) =>
-                  setNewUser({ ...newUser, name: e.target.value })
-                }
+                onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+                onBlur={validateName}
                 className={S.fieldTypeOne}
                 required
                 id="name"
@@ -78,48 +127,27 @@ const AddUser = () => {
             </Typography>
             <div className={S.birthdateCtn}>
               <TextField
-              value={day}
-                onChange={(e) => {
-                  setDay(e.target.value);
-                }}
-                onBlur={(e) => {
-                  setNewUser({
-                    ...newUser,
-                    birthday: `${day}-${month}-${year}`,
-                  });
-                }}
+                value={day}
+                onChange={(e) => { setDay(e.target.value);}}
+                onBlur={() => { setNewUser({...newUser, birthday: `${day}-${month}-${year}`});}}
                 className={S.fieldTypeTwo}
                 id="day"
                 label="Day"
                 variant="outlined"
               />
               <TextField
-              value={month}
-                onChange={(e) => {
-                  setMonth(e.target.value);
-                }}
-                onBlur={(e) => {
-                  setNewUser({
-                    ...newUser,
-                    birthday: `${day}-${month}-${year}`,
-                  });
-                }}
+                value={month}
+                onChange={(e) => { setMonth(e.target.value);}}
+                onBlur={() => {setNewUser({...newUser, birthday: `${day}-${month}-${year}`});}}
                 className={S.fieldTypeTwo}
                 id="month"
                 label="Month"
                 variant="outlined"
               />
               <TextField
-              value={year}
-                onChange={(e) => {
-                  setYear(e.target.value);
-                }}
-                onBlur={(e) => {
-                  setNewUser({
-                    ...newUser,
-                    birthday: `${day}-${month}-${year}`,
-                  });
-                }}
+                value={year}
+                onChange={(e) => {setYear(e.target.value);}}
+                onBlur={() => {setNewUser({...newUser, birthday: `${day}-${month}-${year}`});}}
                 className={S.fieldTypeTwo}
                 id="year"
                 label="Year"
@@ -129,10 +157,11 @@ const AddUser = () => {
 
             <div className={S.emailCtn}>
               <TextField
-                onChange={(e) =>
-                  setNewUser({ ...newUser, email: e.target.value })
-                }
+                error={error.email}
+                helperText={helperText.email}
                 value={newUser.email}
+                onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                onBlur={validateEmail}
                 className={S.fieldTypeThree}
                 required
                 id="email"
@@ -141,9 +170,9 @@ const AddUser = () => {
               />
 
               <TextField
-                onChange={(e) =>
-                  setNewUser({ ...newUser, address: e.target.value })
-                }
+                error={error.address}
+                helperText={helperText.address}
+                onChange={(e) => setNewUser({ ...newUser, address: e.target.value })}
                 value={newUser.address}
                 className={S.fieldTypeThree}
                 id="address"
@@ -152,16 +181,19 @@ const AddUser = () => {
               />
 
               <TextField
-                onChange={(e) =>
-                  setNewUser({ ...newUser, cpf: e.target.value })
-                }
+                error={error.cpf}
+                helperText={helperText.cpf}
                 value={newUser.cpf}
+                onChange={(e) => setNewUser({ ...newUser, cpf: e.target.value })}
                 className={S.fieldTypeThree}
                 id="cpf"
                 label="CPF"
                 variant="outlined"
               />
-              <Button onClick={post} variant="contained">Add</Button>
+              <Button disabled={btnOff} onClick={post} variant="contained">
+                Add
+              </Button>
+              <p>{successText}</p>
             </div>
           </Box>
           <div className="cttCtn"></div>

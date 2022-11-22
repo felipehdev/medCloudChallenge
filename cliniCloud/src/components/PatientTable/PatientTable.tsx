@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import { DataGrid,   GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import Actions from "../Actions/Actions"
 
@@ -13,6 +13,7 @@ const PatientTable = () => {
   console.log(rows);
 
   const [ rowId, setRowId] =  useState('');
+  console.log(rowId)
 
   const [ user, setUser ] = useState('');
 
@@ -26,6 +27,8 @@ const PatientTable = () => {
       .get("https://fd4faqc395.execute-api.sa-east-1.amazonaws.com/dev/user/")
       .then(function (response) {
         setRows(response.data.Items)
+        console.log(`fetched`);
+        
       })
       .catch(function (error) {
         console.log(error);
@@ -45,32 +48,32 @@ const PatientTable = () => {
       field: "cpf",
       headerName: "CPF",
       width: 150,
-      editable: true,
+      editable: false,
     },
     {
       field: "name",
       headerName: "Name",
       width: 300,
-      editable: true,
+      editable: false,
     },
     {
       field: "birthdate",
       headerName: "Birthdate",
       type: "string",
       width: 170,
-      editable: true,
+      editable: false,
     },
     {
       field: "email",
       headerName: "Email",
       width: 300,
-      editable: true,
+      editable: false,
     },
     {
       field: "address",
       headerName: "Address",
       width: 250,
-      editable: true,
+      editable: false,
     },
     // {
     //   field: "options",
@@ -92,9 +95,8 @@ const PatientTable = () => {
         pageSize={10}
         rowsPerPageOptions={[10]}
         disableSelectionOnClick
-        
-        getRowId={(row) => row.id}
-        onRowClick={(params)=> {setRowId(params.id); console.log(rowId);}}
+
+        onRowClick={(params)=> {setRowId(params);}}
         autoHeight= {true}
         density	= {"standard"}
         editMode = { "row"}
