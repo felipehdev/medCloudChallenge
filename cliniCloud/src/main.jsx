@@ -4,7 +4,6 @@ import App from "./App";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./index.css";
 import SideMenu from "./components/SideMenu/SideMenu";
-import Home from "./Pages/Home/Home";
 import AddUser from "./Pages/AddUser/AddUser";
 
 ReactDOM.createRoot(document.getElementById("root")).render(

@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import S from "./Actions.module.css";
 
 const Actions = (rowId) => {
-  console.log(rowId.rowId);
+  console.log(rowId);
 
   const [user, setUser] = useState("");
   console.log(user);
@@ -16,7 +16,7 @@ const Actions = (rowId) => {
   function update() {
     axios
       .put(
-        `https://fd4faqc395.execute-api.sa-east-1.amazonaws.com/dev/user/${rowId.rowId}`,
+        `https://fd4faqc395.execute-api.sa-east-1.amazonaws.com/dev/user/${rowId.rowId.id}`,
         {
           birthdate: user.birthdate,
           cpf: user.cpf,
@@ -36,10 +36,11 @@ const Actions = (rowId) => {
   useEffect(() => {
     axios
       .get(
-        `https://fd4faqc395.execute-api.sa-east-1.amazonaws.com/dev/user/${rowId.rowId}`
+        `https://fd4faqc395.execute-api.sa-east-1.amazonaws.com/dev/user/${rowId.rowId.id}`
       )
       .then(function (response) {
-        setUser(response.data.Item);
+        console.log(response);
+        setUser(response.data.Item)
       })
       .catch(function (error) {
         console.log(error);
@@ -48,18 +49,19 @@ const Actions = (rowId) => {
 
   function deleteUser() {
     axios.delete(
-      `https://fd4faqc395.execute-api.sa-east-1.amazonaws.com/dev/user/${rowId.rowId}`
+      `https://fd4faqc395.execute-api.sa-east-1.amazonaws.com/dev/user/${rowId.rowId.id}`
     );
   }
 
   return (
-    <div>
-      <div className={S.formCtn}>
+    <div> 
+        <hr />
+      <div className={S.formCtn}>       
         <div>
-          <Typography>Update User</Typography>
+          <Typography variant="h6">Update User</Typography>
           <div className={S.nameCtn}>
             <div>
-              <Typography>Name</Typography>
+              <Typography >Name</Typography>
               <TextField
                 onChange={(e) => setUser({ ...user, name: e.target.value })}
                 value={user.name}
@@ -67,7 +69,7 @@ const Actions = (rowId) => {
               ></TextField>
             </div>
             <div>
-              <Typography>Data de Nascimento</Typography>
+              <Typography>Birthdate</Typography>
               <TextField
                 onChange={(e) =>
                   setUser({ ...user, birthdate: e.target.value })
@@ -95,7 +97,7 @@ const Actions = (rowId) => {
               ></TextField>
             </div>
             <div>
-              <Typography>Endereço</Typography>
+              <Typography>Address</Typography>
               <TextField
                 onChange={(e) => setUser({ ...user, address: e.target.value })}
                 value={user.address}

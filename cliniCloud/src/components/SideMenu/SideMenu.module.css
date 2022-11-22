@@ -28,6 +28,18 @@
     height: fit-content;
 }
 .btn {
+    display: flex;
+
+    gap:10px;
+    text-decoration: none;
     width: 300px;
     margin: 30px;
 }
+
+a:link {
+    text-decoration: none;
+  }
+  
+  a:visited {
+    text-decoration: none;
+  }
