@@ -13,6 +13,8 @@ const Actions = (rowId) => {
   const [user, setUser] = useState("");
   console.log(user);  
 
+  const [ confirmText, setConfirmText] = useState("");
+
   function update() {
     axios
       .put(
@@ -26,7 +28,10 @@ const Actions = (rowId) => {
         }
       )
       .then(function (response) {
-        setFetch(Math.random())
+        if (response.status = 200) {
+          setConfirmText('Updated')
+        }
+        console.log(response);
       })
       .catch(function (error) {
         console.log(error);
@@ -54,8 +59,8 @@ const Actions = (rowId) => {
   }
 
   return (
-    <div> 
-        <hr />
+    <div>
+      <hr />
       <div className={S.formCtn}>       
         <div>
           <Typography variant="h6">Update User</Typography>
@@ -105,6 +110,7 @@ const Actions = (rowId) => {
               ></TextField>
             </div>
           </div>
+          <div>{confirmText}</div>
         </div>
         <div className={S.btnsCtn}>
           <Button onClick={deleteUser} variant="outlined" size="small">
