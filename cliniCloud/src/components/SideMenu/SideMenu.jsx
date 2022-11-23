@@ -4,7 +4,6 @@ import { Button } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import Typography from "@mui/material/Typography";
-
 import { Link as RouterLink } from "react-router-dom";
 
 const SideMenu = () => {

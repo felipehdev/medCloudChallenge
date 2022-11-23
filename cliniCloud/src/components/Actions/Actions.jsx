@@ -11,7 +11,7 @@ const Actions = (rowId) => {
   console.log(rowId);
 
   const [user, setUser] = useState("");
-  console.log(user);
+  console.log(user);  
 
   function update() {
     axios
@@ -26,7 +26,7 @@ const Actions = (rowId) => {
         }
       )
       .then(function (response) {
-        console.log(response);
+        setFetch(Math.random())
       })
       .catch(function (error) {
         console.log(error);

@@ -5,7 +5,7 @@ import S from './Title.module.css'
 const Title = () => {
   return (
     <Typography className={S.typho} variant="h4" component="h1">
-    <div className={S.h1}>CliniCloud</div>
+    <div className={S.h1}>MedCloud</div>
     </Typography>
   )
 }
