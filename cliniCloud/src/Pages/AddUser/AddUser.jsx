@@ -35,7 +35,7 @@ const AddUser = () => {
     email: "",
   });
 
-  const [ btnOff, setBtnOff ] = useState(false)  
+  const [ btnOff, setBtnOff ] = useState(true)
 
   const rgex = {
     name: /^[a-zA-Z]+ [a-zA-Z]+$/,    
@@ -64,7 +64,7 @@ const AddUser = () => {
       setHelperText({ ...error, email: "Invalid email" });
       setBtnOff(true);
     }
-  };
+  }; 
 
   //post function
   function post() {   
@@ -88,8 +88,6 @@ const AddUser = () => {
     .catch(function (error) {
       console.log(error);
     });
-
-
   }
 
   return (

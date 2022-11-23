@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import "./index.css";
 import SideMenu from "./components/SideMenu/SideMenu";
 import AddUser from "./Pages/AddUser/AddUser";
@@ -16,8 +16,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
         <div className="dynamicCtt">
           <Routes>
-            <Route path="/" exact element={<App/>} />
-            <Route path="/addUser" element={<AddUser/>}></Route>
+            <Route path="/" exact element={<App />} />
+            <Route path="/addUser" element={<AddUser />}></Route>
           </Routes>
         </div>
       </div>

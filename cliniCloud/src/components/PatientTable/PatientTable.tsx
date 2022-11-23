@@ -13,11 +13,7 @@ const PatientTable = () => {
   console.log(rows);
 
   const [ rowId, setRowId] =  useState('');
-  console.log(rowId)
-
-  const [ user, setUser ] = useState('');
-
-  const [ fetch, setFetch ] = useState('');
+  console.log(rowId)  
   
 
   // axios method that reqs all the patients on load
@@ -27,7 +23,6 @@ const PatientTable = () => {
       .get("https://fd4faqc395.execute-api.sa-east-1.amazonaws.com/dev/user/")
       .then(function (response) {
         setRows(response.data.Items)
-        console.log(`fetched`);
         
       })
       .catch(function (error) {
@@ -75,16 +70,6 @@ const PatientTable = () => {
       width: 250,
       editable: false,
     },
-    // {
-    //   field: "options",
-    //   headerName: "Options",
-      
-    //   description: "This column shows save and cancel operations options.",
-    //   editable: false,
-    //   sortable: false,
-    //   width: 100,
-      
-    // },
   ];
 
   return (
@@ -102,8 +87,6 @@ const PatientTable = () => {
         editMode = { "row"}
         experimentalFeatures={{ newEditingApi: true }}
         headerHeight= {65}
-
-
       />
       
       {rowId ? ( <Actions rowId={rowId} />) : null}
